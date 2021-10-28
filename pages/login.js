@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
+
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import {
@@ -77,6 +79,10 @@ function signin() {
 
   return (
     <div className="bg-gray-100 h-screen grid place-items-center ">
+      <Head>
+        <title>Whatsapp -Sign In</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className=" bg-white w-11/12 md:w-1/3 p-4 h-2/3 flex flex-col items-center justify-center shadow-2xl">
         <img
           src={"/images/WhatsappLogo.png"}
