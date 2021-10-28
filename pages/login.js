@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../config/firebase";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { auth, db } from "../config/firebase";
+import { useDispatch } from "react-redux";
+import { login, logout } from "../features/userSlice";
+import {
+  collection,
+  addDoc,
+  doc,
+  setDoc,
+  onSnapshot,
+  query,
+  where,
+  serverTimestamp,
+} from "firebase/firestore";
 
-function login() {
+function signin() {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +38,42 @@ function login() {
       router.push("/");
     });
   };
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user);
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+
+        const uid = user.uid;
+        const userRef = doc(db, "users", uid);
+        setDoc(
+          userRef,
+          {
+            lastSeen: serverTimestamp(),
+          },
+          { merge: true }
+        );
+
+        dispatch(
+          login({
+            displayName: user?.displayName,
+            email: user?.email,
+            uid: user?.uid,
+            photoURL: user?.photoURL,
+          })
+        );
+        router.replace("/");
+
+        // ...
+      } else {
+        // User is signed out
+        // ...
+        dispatch(logout());
+      }
+    });
+  }, [db, auth]);
 
   return (
     <div className="bg-gray-100 h-screen grid place-items-center ">
@@ -68,4 +122,4 @@ function login() {
   );
 }
 
-export default login;
+export default signin;

@@ -158,7 +158,7 @@ function register() {
           <p className="">
             Have Account? Please
             <span
-              onClick={() => router.push("/login")}
+              onClick={() => router.push("/signin")}
               className="hover:underline cursor-pointer ml-1"
             >
               Login
