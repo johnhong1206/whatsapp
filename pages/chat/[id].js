@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { selectUser } from "../../features/userSlice";
 import { useSelector } from "react-redux";
-import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 
 //firebase.create
-import { app, db } from "../../config/firebase";
+import { db } from "../../config/firebase";
 import {
   collection,
-  addDoc,
   query,
   where,
   getDocs,
@@ -19,14 +18,16 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { useRouter } from "next/router";
-import ChatScreen from "../../components/ChatScreen";
-import UpdateModal from "../../components/UpdateModal";
-import SidebarModal from "../../components/SidebarModal";
+
+const ChatScreen = dynamic(() => import("../../components/ChatScreen"));
+const UpdateModal = dynamic(() => import("../../components/UpdateModal"));
+const SidebarModal = dynamic(() => import("../../components/SidebarModal"));
+const ChatSidebar = dynamic(() => import("../../components/ChatSidebar"));
+
 import {
   selectOpenSidebar,
   selectUpdateProfileModal,
 } from "../../features/modalSlice";
-import ChatSidebar from "../../components/ChatSidebar";
 
 function Chat({ chat }) {
   const router = useRouter();

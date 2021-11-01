@@ -1,27 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 
-import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../config/firebase";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../features/userSlice";
-import {
-  collection,
-  addDoc,
-  doc,
-  setDoc,
-  onSnapshot,
-  query,
-  where,
-  serverTimestamp,
-} from "firebase/firestore";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 
 function signin() {
   const router = useRouter();
@@ -30,7 +15,6 @@ function signin() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
 

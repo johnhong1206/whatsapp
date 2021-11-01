@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 //firebase.create
 import { db, auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
+import dynamic from "next/dynamic";
+const Chat = dynamic(() => import("./Chat"));
 
 import {
   collection,
   addDoc,
   query,
   where,
-  getDocs,
   onSnapshot,
 } from "firebase/firestore";
 
@@ -18,7 +19,6 @@ import { IoIosMore } from "react-icons/io";
 
 //service
 import * as EmailValidator from "email-validator";
-import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../features/userSlice";
 import { useRouter } from "next/router";
@@ -28,8 +28,6 @@ function Sidebar() {
   const router = useRouter();
   const [chat, setChat] = useState([]);
   const user = useSelector(selectUser);
-  const [getUser, setGetUser] = useState("");
-  const [tochatUser, setToChatUser] = useState([]);
   const dispatch = useDispatch();
 
   const img = user

@@ -13,9 +13,10 @@ import {
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 //components
-import Sidebar from "../components/Sidebar";
+const Sidebar = dynamic(() => import("../components/Sidebar"));
 
 //reduc
 import { login, logout, selectUser } from "../features/userSlice";

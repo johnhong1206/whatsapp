@@ -2,14 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 //firebase.create
 import { db } from "../config/firebase";
-import {
-  collection,
-  addDoc,
-  query,
-  where,
-  getDocs,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 //import getRecipientEmail from "../utils/getRecipientEmail";
 import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";

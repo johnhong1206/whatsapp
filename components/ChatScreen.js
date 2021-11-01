@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
 import TimeAgo from "timeago-react";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+const Message = dynamic(() => import("./Message"));
 
 //firebase.create
 import { db } from "../config/firebase";
@@ -13,7 +15,6 @@ import {
   where,
   doc,
   setDoc,
-  getDocs,
   serverTimestamp,
   onSnapshot,
   orderBy,
@@ -28,11 +29,7 @@ import {
 } from "react-icons/io5";
 import { IoIosMore } from "react-icons/io";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
-import Message from "./Message";
-import {
-  openSidebarModal,
-  openUpdateProfileModal,
-} from "../features/modalSlice";
+import { openSidebarModal } from "../features/modalSlice";
 
 function ChatScreen({ chat }) {
   const dispatch = useDispatch();
